@@ -123,11 +123,3 @@ The repository includes a pre-configured GitHub Actions workflow at [`.github/wo
 2. On GitHub, navigate to **Settings** -> **Pages**.
 3. Under **Build and deployment** -> **Source**, select **GitHub Actions**.
 
----
-
-## 👥 Team Bazinga (NIT Rourkela)
-
-- **Arushi Khare**
-- **Devashish Arora**
-- **Khushi Agrawal**
-- **Yash Aditya**
