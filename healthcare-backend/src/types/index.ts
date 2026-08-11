@@ -3,34 +3,15 @@ export interface UserFormData {
   name: string;
   age: string;
   gender: string;
-  contactNumber: string;
   symptoms: string;
   medication: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface Doctor {
-  id: string;
-  name: string;
-  specialty: string;
-  createdAt?: Date;
-}
-
-export interface Appointment {
-  id: string;
-  userId: string;
-  doctorId: string;
-  scheduledAt: string;
-  status: "SCHEDULED" | "CANCELLED" | "COMPLETED";
-  notes: string;
-  doctor?: Doctor;
-  user?: UserFormData;
-}
-
-export interface ApiResponse<T = unknown> {
+export interface ApiResponse<T = any> {
   success: boolean;
-  message?: string;
+  message: string;
   data?: T;
   error?: string;
 }
@@ -44,7 +25,6 @@ export interface CreateUserRequest {
   name: string;
   age: string;
   gender: string;
-  contactNumber: string;
   symptoms: string;
   medication: string;
 }
