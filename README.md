@@ -24,4 +24,3 @@ Manual data entry is time-consuming and error-prone—especially during high pat
 - Role-based access controls  
 - Offline transcription support
 grawal
-- Yash Aditya
