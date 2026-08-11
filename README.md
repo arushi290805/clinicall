@@ -23,10 +23,5 @@ Manual data entry is time-consuming and error-prone—especially during high pat
 - EHR (Electronic Health Record) integration  
 - Role-based access controls  
 - Offline transcription support
-
-## 👥 Team  
-Built by NITR Students
-- Arushi Khare
-- Devashish Arora
-- Khushi Agrawal
+grawal
 - Yash Aditya
