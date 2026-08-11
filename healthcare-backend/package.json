@@ -1,0 +1,55 @@
+{
+  "name": "healthcare-backend",
+  "version": "1.0.0",
+  "description": "Backend for healthcare form application",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "prisma generate && tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:push": "prisma db push",
+    "db:seed": "ts-node prisma/seed.ts",
+    "db:setup": "prisma db push && ts-node prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.3",
+    "@types/cors": "^2.8.14",
+    "@types/express": "^4.17.23",
+    "@types/morgan": "^1.9.6",
+    "@types/node": "^20.8.0",
+    "@types/supertest": "^7.2.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "jsdom": "^29.1.1",
+    "nodemon": "^3.0.1",
+    "prisma": "^5.22.0",
+    "supertest": "^7.2.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "vitest": "^4.1.10"
+  },
+  "keywords": [
+    "healthcare",
+    "typescript",
+    "express",
+    "backend"
+  ],
+  "author": "Your Name",
+  "license": "ISC"
+}

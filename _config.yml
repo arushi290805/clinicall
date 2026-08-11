@@ -1,0 +1,7 @@
+title: Team Bazinga
+description: Welcome to our project website!
+theme: jekyll-theme-primer
+plugins:
+  - jekyll-seo-tag
+  - jekyll-github-metadata
+markdown: kramdown
