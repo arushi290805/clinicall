@@ -42,3 +42,11 @@ model Appointment {
   @@index([userId])
 }
 
+model Worker {
+  id         String   @id @default(uuid())
+  name       String
+  password   String
+  hospitalId String
+  createdAt  DateTime @default(now())
+}
+

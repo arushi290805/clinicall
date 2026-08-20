@@ -4,6 +4,39 @@ import { validateUserData } from "../middleware/validation";
 
 const router = express.Router();
 
+router.post("/login", async (req: Request, res: Response) => {
+  try {
+    const { userId, contactNumber, name } = req.body;
+    if (!userId && !contactNumber && !name) {
+      res.status(400).json({ success: false, error: "Please provide User ID, Contact Number, or Name" });
+      return;
+    }
+
+    let user = null;
+    if (userId) {
+      user = await prisma.user.findUnique({ where: { id: String(userId).trim() } });
+    }
+    if (!user && contactNumber) {
+      user = await prisma.user.findFirst({ where: { contactNumber: String(contactNumber).trim() } });
+    }
+    if (!user && name) {
+      user = await prisma.user.findFirst({
+        where: { name: { equals: String(name).trim() } },
+      });
+    }
+
+    if (!user) {
+      res.status(404).json({ success: false, error: "Account not found. Please sign up." });
+      return;
+    }
+
+    res.json({ success: true, message: "Login successful", user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "Login failed" });
+  }
+});
+
 router.post("/", validateUserData, async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.create({

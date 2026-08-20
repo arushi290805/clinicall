@@ -5,6 +5,7 @@ import userRoutes from "./routes/userRoutes";
 import doctorRoutes from "./routes/doctorRoutes";
 import appointmentRoutes from "./routes/appointmentRoutes";
 import voiceAgentRoutes from "./routes/voiceAgentRoutes";
+import workerRoutes from "./routes/workerRoutes";
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/voice-agent", voiceAgentRoutes);
+app.use("/api/workers", workerRoutes);
 
 export default app;

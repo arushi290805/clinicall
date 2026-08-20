@@ -7,6 +7,7 @@ vi.mock("../src/lib/prisma", () => ({
       create: vi.fn(),
       findMany: vi.fn(),
       findUnique: vi.fn(),
+      findFirst: vi.fn(),
       update: vi.fn(),
       delete: vi.fn(),
     },
@@ -21,6 +22,10 @@ vi.mock("../src/lib/prisma", () => ({
       findMany: vi.fn(),
       findUnique: vi.fn(),
       findFirst: vi.fn(),
+    },
+    worker: {
+      create: vi.fn(),
+      findUnique: vi.fn(),
     },
   },
 }));
@@ -37,6 +42,34 @@ describe("API routes", () => {
     const res = await request(app).get("/api/health");
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
+  });
+
+  it("POST /api/users/login returns user when found by ID", async () => {
+    vi.mocked(prisma.user.findUnique).mockResolvedValue({
+      id: "u123",
+      name: "Jane Doe",
+      contactNumber: "1234567890",
+    } as never);
+
+    const res = await request(app)
+      .post("/api/users/login")
+      .send({ userId: "u123" });
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.user.name).toBe("Jane Doe");
+  });
+
+  it("POST /api/users/login returns 404 when user not found", async () => {
+    vi.mocked(prisma.user.findUnique).mockResolvedValue(null as never);
+    vi.mocked(prisma.user.findFirst).mockResolvedValue(null as never);
+
+    const res = await request(app)
+      .post("/api/users/login")
+      .send({ userId: "nonexistent" });
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
   });
 
   it("GET /api/doctors returns list", async () => {
@@ -97,5 +130,43 @@ describe("API routes", () => {
     });
 
     expect(res.status).toBe(409);
+  });
+
+  it("POST /api/workers/signup registers worker and returns details", async () => {
+    vi.mocked(prisma.worker.create).mockResolvedValue({
+      id: "worker-123",
+      name: "Dr. Worker",
+      password: "secretpassword",
+      hospitalId: "hosp-99",
+      createdAt: new Date(),
+    } as never);
+
+    const res = await request(app).post("/api/workers/signup").send({
+      name: "Dr. Worker",
+      password: "secretpassword",
+      hospitalId: "hosp-99",
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.success).toBe(true);
+    expect(res.body.worker.id).toBe("worker-123");
+  });
+
+  it("POST /api/workers/signin authenticates worker with valid ID & password", async () => {
+    vi.mocked(prisma.worker.findUnique).mockResolvedValue({
+      id: "worker-123",
+      name: "Dr. Worker",
+      password: "secretpassword",
+      hospitalId: "hosp-99",
+    } as never);
+
+    const res = await request(app).post("/api/workers/signin").send({
+      id: "worker-123",
+      password: "secretpassword",
+    });
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.worker.name).toBe("Dr. Worker");
   });
 });
